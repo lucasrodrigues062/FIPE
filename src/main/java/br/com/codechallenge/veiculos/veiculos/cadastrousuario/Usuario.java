@@ -69,6 +69,10 @@ public class Usuario {
   }
 
 
+  public List<Veiculo> getVeiculos() {
+    return this.veiculos;
+  }
+
   @Override
   public String toString() {
     return "{" +

@@ -1,6 +1,7 @@
 package br.com.codechallenge.veiculos.veiculos.cadastroveiculo;
 
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,22 +23,26 @@ public class VeiculoDto {
   private String valor;
 
   private Long idUsuario;
+  private DayOfWeek diaRodizio;
 
   public VeiculoDto(Veiculo veiculo){
     this.ano = veiculo.getAno();
     this.idUsuario = veiculo.getUsuario().getId();
     this.modelo = veiculo.getModelo();
     this.marca = veiculo.getMarca();
+    this.diaRodizio = veiculo.getDiaRodizio();
+    this.valor = veiculo.getValor();
   }
 
-  public Veiculo toModel(UsuarioRepository repository) throws NotFoundException {
-    Optional<Usuario> optional = repository.findById(idUsuario);
-    if(!optional.isPresent()){
-      throw new NotFoundException("nao existe usuario cadastrado");
-    }
-    return new Veiculo(marca,modelo,ano,valor,optional.get());
+  public Veiculo toModel(Usuario usuario ) {
+
+    return new Veiculo(marca,modelo,ano,valor,usuario);
   }
 
+
+  public DayOfWeek getDiaRodizio() {
+    return this.diaRodizio;
+  }
   
 
   public VeiculoDto(String marca, String modelo, String ano, Long idUsuario) {
